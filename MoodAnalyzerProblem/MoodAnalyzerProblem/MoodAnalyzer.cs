@@ -8,7 +8,11 @@ namespace MoodAnalyzerProblem
 {
     public class MoodAnalyzer
     {
-        public string message;  //instance variable
+        public string message; //instance variable
+        public MoodAnalyzer()
+        {
+            Console.WriteLine("default contructor");
+        }
         public MoodAnalyzer(string message) //parameterized constructor 
         {
             this.message = message;
@@ -17,7 +21,11 @@ namespace MoodAnalyzerProblem
         {
             try
             {
-                //UC3 
+                message = message.ToLower();
+                if (this.message == null)
+                {
+                    throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL_EXCEPTION, "Message cann't be null");
+                }
                 if (this.message.Equals(string.Empty)) 
                 {
                     throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be empty");
@@ -31,10 +39,9 @@ namespace MoodAnalyzerProblem
                     return "sad";
                 }
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
-                return ex.Message;
-                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL_EXCEPTION, "Mood should not be empty");
+                return "happy";
             }
         }
     }
