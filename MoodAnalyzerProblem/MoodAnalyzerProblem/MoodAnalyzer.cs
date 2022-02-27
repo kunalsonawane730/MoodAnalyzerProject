@@ -17,6 +17,11 @@ namespace MoodAnalyzerProblem
         {
             try
             {
+                //UC3 
+                if (this.message.Equals(string.Empty)) 
+                {
+                    throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be empty");
+                }
                 if (this.message.ToLower().Contains("happy"))
                 {
                     return "happy";
@@ -28,8 +33,8 @@ namespace MoodAnalyzerProblem
             }
             catch (NullReferenceException ex)
             {
-                Console.WriteLine(ex.Message);
-                return "happy";
+                return ex.Message;
+                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL_EXCEPTION, "Mood should not be empty");
             }
         }
     }
