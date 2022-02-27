@@ -38,5 +38,21 @@ namespace MoodAnalyzerTestCase
             //Assert
             Assert.AreEqual(expected, Actual);
         }
+        [TestMethod]
+        [TestCategory("Null Case")]
+        public void GivenNullReturnHappyMood()
+        {
+            ///AAA methodology
+            ///arrange
+            string message = null;
+            string expected = "happy";
+            MoodAnalyzer moodAnalyzer = new MoodAnalyzer(message);
+
+            //Act
+            string Actual = moodAnalyzer.Analyzer();
+
+            //Assert
+            Assert.AreEqual(expected, Actual);
+        }
     }
 }
