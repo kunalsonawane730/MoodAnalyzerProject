@@ -203,5 +203,31 @@ namespace MoodAnalyzerTestCase
             object actual = MoodAnalyzerFactory.CreateMoodAnalyserOptionalVariable("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "I am Parameter constructor");
             expected.Equals(actual);
         }
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void InvokeMethodReflection_ShouldRetunHappy()
+        {
+            string expected = "happy";
+            string actual = MoodAnalyzerFactory.InvokeAnalyseMood("I am happy", "Mood");
+            expected.Equals(actual);
+        }
+        /// <summary>
+        /// TC-6.2  should throw method not found exception.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenMethodnameImproper_ShouldReturnMoodAnalysisException()
+        {
+            string expected = "No method found";
+            try
+            {
+                string actual = MoodAnalyzerFactory.InvokeAnalyseMood("I am happy", "MoodAnalyse");
+                expected.Equals(actual);
+            }
+            catch (MoodAnalyzerException ex)
+            {
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
     }
 }
