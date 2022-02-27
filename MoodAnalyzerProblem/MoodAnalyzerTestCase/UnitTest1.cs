@@ -150,5 +150,58 @@ namespace MoodAnalyzerTestCase
                 Assert.AreEqual(expected, ex.Message);
             }
         }
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenMoodAnalyserParameterizedConstructor_ShouldReturnObject()
+        {
+            object expected = new MoodAnalyzer("I am Parameter constructor");
+            object actual = MoodAnalyzerFactory.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.AnalyzeMood", "AnalyzeMood", "I am Parameter constructor");
+            expected.Equals(actual);
+        }
+        /// <summary>
+        /// TC-5.2 should throw NO_SUCH_CLASS exception with parameterized constructor.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenClassNameImproperParameterizedConstructor_ShouldReturnMoodAnalysisException()
+        {
+            string expected = "Class not found";
+            try
+            {
+                object actual = MoodAnalyzerFactory.CreateMoodAnalyserParameterizedConstructor("MoodAnalyser.AnalyzeMood", "AnalyzeMood", "I am Parameter constructor");
+            }
+            catch (MoodAnalyzerException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
+        /// <summary>
+        /// TC-5.3 should throw NO_SUCH_CONSTRUCTOR exception with parameterized constructor.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenImproperParameterizedConstructorName_ShouldReturnMoodAnalysisException()
+        {
+            string expected = "Constructor not found";
+            try
+            {
+                object actual = MoodAnalyzerFactory.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.AnalyzeMood", "AnalyzeMod", "I am Parameter constructor");
+            }
+            catch (MoodAnalyzerException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
+        /// <summary>
+        /// UC5-Refactor dry principle
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenMoodAnalyserOptionalVarible_ShouldReturnObject()
+        {
+            object expected = new MoodAnalyzer("I am Parameter constructor");
+            object actual = MoodAnalyzerFactory.CreateMoodAnalyserOptionalVariable("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "I am Parameter constructor");
+            expected.Equals(actual);
+        }
     }
 }
